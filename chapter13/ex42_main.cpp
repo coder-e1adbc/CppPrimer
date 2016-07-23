@@ -1,4 +1,4 @@
-#include "ex32.h"
+#include "ex42.h"
 
 using std::cin;
 using std::cout;
@@ -11,7 +11,7 @@ void runQueries(ifstream &);
 
 int main(int argc, char *argv[])
 {
-	ifstream infile(argc == 1 ? "ex32_main.cpp" : argv[1]);
+	ifstream infile(argc == 1 ? "ex42_main.cpp" : argv[1]);
 	runQueries(infile);
 
 	return 0;
