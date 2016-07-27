@@ -7,6 +7,8 @@
 #include <initializer_list>
 
 class StrVec {
+friend bool operator==(const StrVec &, const StrVec &);
+friend bool operator!=(const StrVec &, const StrVec &);
 public:
 	StrVec():
 		elements(nullptr), first_free(nullptr), cap(nullptr) { }
@@ -17,6 +19,7 @@ public:
 	StrVec& operator=(StrVec &&) noexcept;
 	~StrVec();
 	void push_back(const std::string &);
+	void push_back(std::string &&);
 	size_t size() const { return first_free - elements; }
 	size_t capacity() const { return cap - elements; }
 	std::string* begin() const { return elements; }
@@ -39,5 +42,8 @@ inline void StrVec::chk_n_alloc()
 	if (size() == capacity())
 		reallocate();
 }
+
+friend bool operator==(const StrVec &, const StrVec &);
+friend bool operator!=(const StrVec &, const StrVec &);
 
 #endif

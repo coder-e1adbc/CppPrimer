@@ -7,16 +7,24 @@
 #include <initializer_list>
 
 class StrVec {
+friend bool operator==(const StrVec &, const StrVec &);
+friend bool operator!=(const StrVec &, const StrVec &);
+friend bool operator<(const StrVec &, const StrVec &);
+friend bool operator<=(const StrVec &, const StrVec &);
+friend bool operator>(const StrVec &, const StrVec &);
+friend bool operator>=(const StrVec &, const StrVec &);
 public:
 	StrVec():
 		elements(nullptr), first_free(nullptr), cap(nullptr) { }
-	StrVec(const std::initializer_list<std::string> &);
+	StrVec(std::initializer_list<std::string>);
 	StrVec(const StrVec &);
 	StrVec(StrVec &&) noexcept;
 	StrVec& operator=(const StrVec &);
 	StrVec& operator=(StrVec &&) noexcept;
+	StrVec& operator=(initializer_list<std::string>)
 	~StrVec();
 	void push_back(const std::string &);
+	void push_back(std::string &&);
 	size_t size() const { return first_free - elements; }
 	size_t capacity() const { return cap - elements; }
 	std::string* begin() const { return elements; }
@@ -39,5 +47,12 @@ inline void StrVec::chk_n_alloc()
 	if (size() == capacity())
 		reallocate();
 }
+
+friend bool operator==(const StrVec &, const StrVec &);
+friend bool operator!=(const StrVec &, const StrVec &);
+bool operator<(const StrVec &, const StrVec &);
+bool operator<=(const StrVec &, const StrVec &);
+bool operator>(const StrVec &, const StrVec &);
+bool operator>=(const StrVec &, const StrVec &);
 
 #endif

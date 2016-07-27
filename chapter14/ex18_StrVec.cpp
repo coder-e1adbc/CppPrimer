@@ -1,4 +1,4 @@
-#include "ex55.h"
+#include "ex18_StrVec.h"
 #include <iterator>
 
 using std::string;
@@ -122,4 +122,50 @@ void StrVec::reallocate()
 	elements = first;
 	first_free = last;
 	cap = elements + newcapacity;
+}
+
+bool operator==(const StrVec &lhs, const StrVec &rhs)
+{
+	if (lhs.size() != rhs.size())
+		return false;
+	for (auto pl = lhs.begin(), pr = rhs.begin(); pl != lhs.end(); )
+		if (*pl != *pr)
+			return false;
+	return true;
+}
+bool operator!=(const StrVec &lhs, const StrVec &rhs)
+{
+	return !(lhs == rhs);
+}
+bool operator<(const StrVec &lhs, const StrVec &rhs)
+{
+	auto sz = lhs.size() < rhs.size() ? lhs.size() : rhs.size();
+	auto pl = lhs.begin(), pr = rhs.begin();
+	while (sz-- && *pl == *pr)
+		++pl, ++pr;
+	return sz ? *pl < *pr : pr != rhs.end();
+}
+bool operator<=(const StrVec &lhs, const StrVec &rhs)
+{
+	auto sz = lhs.size() < rhs.size() ? lhs.size() : rhs.size();
+	auto pl = lhs.begin(), pr = rhs.begin();
+	while (sz-- && *pl == *pr)
+		++pl, ++pr;
+	return sz ? *pl <= *pr : pl == lhs.end();
+}
+bool operator>(const StrVec &lhs, const StrVec &rhs)
+{
+	auto sz = lhs.size() < rhs.size() ? lhs.size() : rhs.size();
+	auto pl = lhs.begin(), pr = rhs.begin();
+	while (sz-- && *pl == *pr)
+		++pl, ++pr;
+	return sz ? *pl > *pr : pl != lhs.end();
+}
+bool operator>=(const StrVec &lhs, const StrVec &rhs)
+{
+	auto sz = lhs.size() < rhs.size() ? lhs.size() : rhs.size();
+	auto pl = lhs.begin(), pr = rhs.begin();
+	while (sz-- && *pl == *pr)
+		++pl, ++pr;
+	return sz ? *pl >= *pr : pr == rhs.end();
 }

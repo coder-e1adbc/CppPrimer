@@ -1,5 +1,5 @@
-#ifndef STRVEC
-#define STRVEC
+#ifndef STRVEC_H
+#define STRVEC_H
 
 #include <string>
 #include <memory>

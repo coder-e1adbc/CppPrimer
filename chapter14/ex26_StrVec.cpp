@@ -1,4 +1,4 @@
-#include "ex55.h"
+#include "ex26_StrVec.h"
 #include <iterator>
 
 using std::string;
@@ -10,7 +10,7 @@ using std::make_move_iterator;
 
 allocator<string> StrVec::alloc;
 
-StrVec::StrVec(const initializer_list<string> &lst)
+StrVec::StrVec(initializer_list<string> lst)
 {
 	auto newdata = alloc_n_copy(lst.begin(), lst.end());
 	elements = newdata.first;
@@ -49,6 +49,14 @@ StrVec& StrVec::operator=(StrVec &&rhs) noexcept
 		cap = rhs.cap;
 		rhs.elements = rhs.first_free = rhs.cap = nullptr;
 	}
+	return *this;
+}
+SteVec& StrVec::operator=(initializer_list<string> il)
+{
+	auto data = alloc_n_copy(il.begin(), il.end());
+	free();
+	elements = data.first;
+	first_free = cap = data.second;
 	return *this;
 }
 
@@ -122,4 +130,50 @@ void StrVec::reallocate()
 	elements = first;
 	first_free = last;
 	cap = elements + newcapacity;
+}
+
+bool operator==(const StrVec &lhs, const StrVec &rhs)
+{
+	if (lhs.size() != rhs.size())
+		return false;
+	for (auto pl = lhs.begin(), pr = rhs.begin(); pl != lhs.end(); )
+		if (*pl != *pr)
+			return false;
+	return true;
+}
+bool operator!=(const StrVec &lhs, const StrVec &rhs)
+{
+	return !(lhs == rhs);
+}
+bool operator<(const StrVec &lhs, const StrVec &rhs)
+{
+	auto sz = lhs.size() < rhs.size() ? lhs.size() : rhs.size();
+	auto pl = lhs.begin(), pr = rhs.begin();
+	while (sz-- && *pl == *pr)
+		++pl, ++pr;
+	return sz ? *pl < *pr : pr != rhs.end();
+}
+bool operator<=(const StrVec &lhs, const StrVec &rhs)
+{
+	auto sz = lhs.size() < rhs.size() ? lhs.size() : rhs.size();
+	auto pl = lhs.begin(), pr = rhs.begin();
+	while (sz-- && *pl == *pr)
+		++pl, ++pr;
+	return sz ? *pl <= *pr : pl == lhs.end();
+}
+bool operator>(const StrVec &lhs, const StrVec &rhs)
+{
+	auto sz = lhs.size() < rhs.size() ? lhs.size() : rhs.size();
+	auto pl = lhs.begin(), pr = rhs.begin();
+	while (sz-- && *pl == *pr)
+		++pl, ++pr;
+	return sz ? *pl > *pr : pl != lhs.end();
+}
+bool operator>=(const StrVec &lhs, const StrVec &rhs)
+{
+	auto sz = lhs.size() < rhs.size() ? lhs.size() : rhs.size();
+	auto pl = lhs.begin(), pr = rhs.begin();
+	while (sz-- && *pl == *pr)
+		++pl, ++pr;
+	return sz ? *pl >= *pr : pr == rhs.end();
 }
