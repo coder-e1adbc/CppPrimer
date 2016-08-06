@@ -13,7 +13,7 @@ StrBlob::StrBlob(): data(make_shared<vector<string>>()) { }
 StrBlob::StrBlob(initializer_list<string> il): data(make_shared<vector<string>>(il)) { }
 void StrBlob::check(size_type i, const string &msg) const
 {
-	if (i > data->size())
+	if (i >= data->size())
 		throw out_of_range(msg);
 }
 string& StrBlob::front()

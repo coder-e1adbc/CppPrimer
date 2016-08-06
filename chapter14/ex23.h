@@ -21,7 +21,7 @@ public:
 	StrVec(StrVec &&) noexcept;
 	StrVec& operator=(const StrVec &);
 	StrVec& operator=(StrVec &&) noexcept;
-	StrVec& operator=(initializer_list<std::string>)
+	StrVec& operator=(initializer_list<std::string>);
 	~StrVec();
 	void push_back(const std::string &);
 	void push_back(std::string &&);
@@ -48,8 +48,8 @@ inline void StrVec::chk_n_alloc()
 		reallocate();
 }
 
-friend bool operator==(const StrVec &, const StrVec &);
-friend bool operator!=(const StrVec &, const StrVec &);
+bool operator==(const StrVec &, const StrVec &);
+bool operator!=(const StrVec &, const StrVec &);
 bool operator<(const StrVec &, const StrVec &);
 bool operator<=(const StrVec &, const StrVec &);
 bool operator>(const StrVec &, const StrVec &);

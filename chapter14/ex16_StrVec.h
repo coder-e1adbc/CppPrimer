@@ -43,7 +43,7 @@ inline void StrVec::chk_n_alloc()
 		reallocate();
 }
 
-friend bool operator==(const StrVec &, const StrVec &);
-friend bool operator!=(const StrVec &, const StrVec &);
+bool operator==(const StrVec &, const StrVec &);
+bool operator!=(const StrVec &, const StrVec &);
 
 #endif
