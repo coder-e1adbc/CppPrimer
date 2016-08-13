@@ -27,7 +27,7 @@ StrVec::StrVec(const StrVec &s)
 StrVec::StrVec(StrVec &&s) noexcept:
 	elements(s.elements), first_free(s.first_free), cap(s.cap)
 {
-	s.element = s.first = s.cap = nullptr;
+	s.elements = s.first_free = s.cap = nullptr;
 }
 
 StrVec& StrVec::operator=(const StrVec &rhs)
@@ -51,7 +51,7 @@ StrVec& StrVec::operator=(StrVec &&rhs) noexcept
 	}
 	return *this;
 }
-SteVec& StrVec::operator=(initializer_list<string> il)
+StrVec& StrVec::operator=(initializer_list<string> il)
 {
 	auto data = alloc_n_copy(il.begin(), il.end());
 	free();
@@ -74,7 +74,7 @@ void StrVec::push_back(const string &s)
 void StrVec::push_back(string &&s)
 {
 	chk_n_alloc();
-	alloc.construct(first_free++, make_move_iterator(s));
+	alloc.construct(first_free++, std::move(s));
 }
 
 void StrVec::reserve(const size_t n)

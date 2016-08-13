@@ -1,10 +1,11 @@
 #ifndef STRVEC_H
 #define STRVEC_H
 
-#include <string>
-#include <memory>
-#include <utility>
 #include <initializer_list>
+#include <memory>
+#include <string>
+#include <utility>
+#include "ex01.h"
 
 class StrVec {
 friend bool operator==(const StrVec &, const StrVec &);
